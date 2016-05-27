@@ -4,9 +4,9 @@
 
     angular.module('auctioneer.items').controller('ItemsController', ItemsController);
 
-    ItemsController.$inject = ['$scope', 'dataService'];
+    ItemsController.$inject = ['$uibModal', 'dataService'];
 
-    function ItemsController ($scope, dataService)
+    function ItemsController ($uibModal, dataService)
     {
         var vm = this;
 
@@ -20,20 +20,6 @@
         vm.removeItem = removeItem;
         vm.saveItem = saveItem;
 
-        $scope.$on(
-            '$viewContentLoaded',
-            function ()
-            {
-                $timeout(
-                    function ()
-                    {
-                        vm.loaded = true;
-                    },
-                    2000
-                );
-            }
-        );
-
         initialize();
 
         function initialize ()
@@ -41,6 +27,7 @@
             dataService.getItems().then(function (items)
                 {
                     vm.items = items;
+                    vm.loaded = true;
                 }
             );
         }
@@ -67,14 +54,28 @@
 
         function removeItem(item)
         {
-            dataService.removeItem(item).then(function (response) {
-                if (response) {
-                    var index = vm.items.indexOf(item);
-
-                    if (index > -1) {
-                        vm.items.splice(index, 1);
+            var removeModal = $uibModal.open({
+                animation: true,
+                templateUrl: 'removeItemModal',
+                controller: 'RemoveItemModalController',
+                controllerAs: 'vm',
+                resolve: {
+                    item: function () {
+                        return item;
                     }
                 }
+            });
+
+            removeModal.result.then(function (item) {
+                dataService.removeItem(item).then(function (response) {
+                    if (response) {
+                        var index = vm.items.indexOf(item);
+
+                        if (index > -1) {
+                            vm.items.splice(index, 1);
+                        }
+                    }
+                });
             });
         }
 
@@ -94,6 +95,11 @@
         }
     }
 
+    /**
+     * A new instance of an auction item.
+     *
+     * @constructor
+     */
     function Item ()
     {
         var item = this;

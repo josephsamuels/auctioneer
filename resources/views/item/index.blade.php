@@ -23,8 +23,8 @@
                                       ng-class="{ 'has-danger': itemAddForm.full_description.$invalid }">
                                 <label class="col-sm-3 form-control-label">Full Description</label>
                                 <div class="col-sm-9">
-                                <textarea name="full_description" class="form-control" required
-                                          placeholder="Full Description" ng-model="vm.item.full_description"
+                                <textarea name="full_description" class="form-control" placeholder="Full Description"
+                                          ng-model="vm.item.full_description" required
                                 ></textarea>
                                 </div>
                             </fieldset>
@@ -85,6 +85,11 @@
                         <th></th>
                         </thead>
                         <tbody>
+                        <tr ng-show="vm.items.length <= 0">
+                            <td colspan="5" class="text-xs-center">
+                                Add some items to get started!
+                            </td>
+                        </tr>
                         <tr ng-repeat="item in vm.items | orderBy:'-id'">
                             <th scope="row">[{[ item.id ]}]</th>
                             <td>[{[ item.short_description ]}]</td>
@@ -94,7 +99,8 @@
                                 <button type="button" class="btn btn-secondary btn-sm" ng-click="vm.editItem(item)">
                                     <span class="octicon octicon-pencil"></span>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeItem(item)">
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#removeModal" ng-click="vm.removeItem(item)">
                                     <span class="octicon octicon-remove-close"></span>
                                 </button>
                             </td>
@@ -104,5 +110,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="splash-screen" ng-hide="vm.loaded"></div>
+
+        <script type="text/ng-template" id="removeItemModal">
+            <div class="modal-header">
+                <h3 class="modal-title">Remove Item</h3>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove the selected item?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+            </div>
+        </script>
     </div>
 @endsection
