@@ -1,15 +1,18 @@
 {
   "disabled":  {
+    "key": "disabled",
     "name": "Disabled",
     "permissions": []
   },
   "user": {
+    "key": "user",
     "name": "User",
     "permissions": [
       "can_view_items"
     ]
   },
   "editor": {
+    "key": "editor",
     "name": "Editor",
     "permissions": [
       "can_create_items", "can_delete_items", "can_edit_items"
@@ -17,6 +20,7 @@
     "inherits": "user"
   },
   "supervisor": {
+    "key": "supervisor",
     "name": "Supervisor",
     "permissions": [
       "can_create_users", "can_edit_users"
@@ -24,6 +28,7 @@
     "inherits": "editor"
   },
   "administrator": {
+    "key": "administrator",
     "name": "Administrator",
     "permissions": [
       "can_edit_supervisors"

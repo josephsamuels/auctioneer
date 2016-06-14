@@ -10,8 +10,9 @@
     {
         var vm = this;
 
-        vm.user = user;
+        vm.role_options = [];
         vm.roles = [];
+        vm.user = user;
 
         vm.cancel = cancel;
         vm.save = save;
@@ -26,6 +27,8 @@
             roleService.getRoles().then(function (roles)
             {
                 vm.roles = roles;
+                vm.role_options = angular.copy(roles);
+                delete vm.role_options.administrator;
             });
         }
 

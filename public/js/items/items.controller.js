@@ -49,7 +49,7 @@
         /**
          * Edit the provided item.
          *
-         * @param {Object} item The item to edit.
+         * @param {Item} item The item to edit.
          */
         function editItem (item)
         {

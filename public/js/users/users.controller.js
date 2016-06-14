@@ -15,6 +15,7 @@
         vm.loaded = false;
 
         vm.addUser = addUser;
+        vm.editUser = editUser;
 
         initialize();
 
@@ -40,7 +41,8 @@
          */
         function addUser ()
         {
-            showEditUserModal(new User()).then(function (user) {
+            showEditUserModal(new User()).then(function (user)
+            {
                 userService.addUser(user).then(function (user)
                 {
                     vm.users.push(user);
@@ -48,9 +50,27 @@
             });
         }
 
+        /**
+         * Edit the provided user.
+         *
+         * @param {User} user The item to edit.
+         */
         function editUser (user)
         {
-
+            showEditUserModal(angular.copy(user)).then(function (user)
+            {
+                userService.saveUser(user).then(function (response)
+                {
+                    if (response) {
+                        for (var i = 0; i < vm.users.length; i++) {
+                            if (vm.users[i].id === item.id) {
+                                vm.users[i] = item;
+                                return;
+                            }
+                        }
+                    }
+                });
+            });
         }
 
         /**
@@ -60,7 +80,7 @@
          *
          * @returns {*}
          */
-        function showEditUserModal(user)
+        function showEditUserModal (user)
         {
             var modal_options = {
                 animation: true,
@@ -93,6 +113,6 @@
         user.name = '';
         user.email = '';
         user.password = '';
-        user.role = 'user';
+        user.role = '';
     }
 })();

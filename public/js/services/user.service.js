@@ -12,6 +12,7 @@
 
         service.addUser = addUser;
         service.getUsers = getUsers;
+        service.saveUser = saveUser;
 
         return service;
 
@@ -38,6 +39,21 @@
         function getUsers ()
         {
             return $http.get('api/v1/users').then(function (response)
+            {
+                return response.data;
+            });
+        }
+
+        /**
+         * Save an user to the database.
+         *
+         * @param {Object} user The item to save.
+         *
+         * @returns {*}
+         */
+        function saveUser (user)
+        {
+            return $http.patch('api/v1/user/' + user.id, user).then(function (response)
             {
                 return response.data;
             });
