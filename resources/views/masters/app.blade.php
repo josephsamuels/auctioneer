@@ -7,7 +7,24 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 <body>
+
 <div class="content">
+    <nav class="navbar navbar-sticky-top navbar-dark bg-primary">
+        <div class="navbar-brand">Auctioneer</div>
+        @if(Auth::user())
+            <ul class="nav navbar-nav pull-xs-right">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/items">Items</a>
+                </li>
+                @if(in_array(Auth::user()->role, ['supervisor', 'administrator']))
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/users">Users</a>
+                    </li>
+                @endif
+            </ul>
+        @endif
+    </nav>
+
     @yield('content')
 </div>
 
@@ -24,11 +41,18 @@
 <script src="/js/app.module.js"></script>
 <script src="/js/app.config.js"></script>
 
-<script src="/js/services/data.service.js"></script>
+<script src="/js/services/item.service.js"></script>
+<script src="/js/services/role.service.js"></script>
+<script src="/js/services/user.service.js"></script>
 
 <script src="/js/items/items.module.js"></script>
 <script src="/js/items/items.controller.js"></script>
-<script src="/js/items/remove-item-modal.controller.js"></script>
+<script src="/js/items/modal/edit-item.controller.js"></script>
+<script src="/js/items/modal/remove-item.controller.js"></script>
+
+<script src="/js/users/users.module.js"></script>
+<script src="/js/users/users.controller.js"></script>
+<script src="/js/users/modal/edit-user.controller.js"></script>
 <!-- End application scripts -->
 
 </body>

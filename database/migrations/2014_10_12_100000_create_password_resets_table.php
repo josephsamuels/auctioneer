@@ -2,9 +2,14 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
+/**
+ * Class CreatePasswordResetsTable - A migration to create the 'password_resets' table.
+ */
 class CreatePasswordResetsTable extends Migration
 {
+    
     /**
      * Run the migrations.
      *

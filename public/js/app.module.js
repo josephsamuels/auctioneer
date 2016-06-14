@@ -2,5 +2,5 @@
 {
     'use strict';
 
-    angular.module('auctioneer', ['ui.bootstrap', 'auctioneer.items']);
+    angular.module('auctioneer', ['ui.bootstrap', 'auctioneer.items', 'auctioneer.users']);
 })();

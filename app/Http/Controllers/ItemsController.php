@@ -1,15 +1,19 @@
 <?php
 namespace App\Http\Controllers;
 
+/**
+ * Class ItemsController - A class to act as a controller for items.
+ */
 class ItemsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
+    /**
+     * Returns the index page for items.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        return view('item.index');
+        return view('items.index');
     }
 }

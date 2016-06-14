@@ -2,9 +2,14 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
+/**
+ * Class CreateUsersTable - A migration to create the 'users' table.
+ */
 class CreateUsersTable extends Migration
 {
+    
     /**
      * Run the migrations.
      *

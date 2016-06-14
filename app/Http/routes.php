@@ -11,14 +11,24 @@
 |
 */
 
-Route::group(['before' => 'auth'], function () {
+Route::group(['middleware' => ['auth']], function () {
     // your routes
     Route::get('items', 'ItemsController@index');
 
-    Route::get('api/v1/items', 'ApiController@getItems');
-    Route::post('api/v1/item', 'ApiController@postItem');
-    Route::patch('api/v1/item/{id}', 'ApiController@patchItem');
-    Route::delete('api/v1/item/{id}', 'ApiController@removeItem');
+    Route::get('api/v1/items', 'Api\ItemsApiController@getItems');
+    Route::post('api/v1/item', 'Api\ItemsApiController@postItem');
+    Route::patch('api/v1/item/{item}', 'Api\ItemsApiController@patchItem');
+    Route::delete('api/v1/item/{item}', 'Api\ItemsApiController@removeItem');
+
+    Route::get('api/v1/roles', 'Api\RolesApiController@getRoles');
+
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('users', 'UsersController@index');
+
+        Route::get('api/v1/users', 'Api\UsersApiController@getUsers');
+        Route::post('api/v1/user', 'Api\UsersApiController@postUser');
+        Route::patch('api/v1/user/{user}', 'Api\UsersApiController@patchUser');
+    });
 });
 
 Route::get('/', function () {

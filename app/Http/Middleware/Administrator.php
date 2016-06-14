@@ -1,12 +1,15 @@
 <?php
 namespace App\Http\Middleware;
 
-use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+/**
+ * Class Administrator - Middleware to redirect non-administrative users.
+ */
+class Administrator
 {
+
     /**
      * Handle an incoming request.
      *
@@ -16,13 +19,13 @@ class Authenticate
      *
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $guard = null)
+    public function handle(Request $request, \Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->guest()) {
+        if (!in_array(Auth::user()->role, ['supervisor', 'administrator'])) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('auth/login');
+                return redirect('/items');
             }
         }
 

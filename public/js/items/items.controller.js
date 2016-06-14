@@ -4,27 +4,27 @@
 
     angular.module('auctioneer.items').controller('ItemsController', ItemsController);
 
-    ItemsController.$inject = ['$uibModal', 'dataService'];
+    ItemsController.$inject = ['$uibModal', 'itemService'];
 
-    function ItemsController ($uibModal, dataService)
+    function ItemsController ($uibModal, itemService)
     {
         var vm = this;
 
         vm.items = [];
-        vm.item = new Item();
         vm.loaded = false;
 
         vm.addItem = addItem;
-        vm.clearItem = clearItem;
         vm.editItem = editItem;
         vm.removeItem = removeItem;
-        vm.saveItem = saveItem;
 
         initialize();
 
+        /**
+         * Initialize the controller.
+         */
         function initialize ()
         {
-            dataService.getItems().then(function (items)
+            itemService.getItems().then(function (items)
                 {
                     vm.items = items;
                     vm.loaded = true;
@@ -32,42 +32,96 @@
             );
         }
 
+        /**
+         * Add an item to the database.
+         */
         function addItem ()
         {
-            dataService.addItem(vm.item).then(function (item)
+            showEditItemModal(new Item()).then(function (item)
+            {
+                itemService.addItem(item).then(function (item)
                 {
                     vm.items.push(item);
-                    clearItem();
-                }
-            );
+                });
+            });
         }
 
-        function clearItem()
+        /**
+         * Edit the provided item.
+         *
+         * @param {Object} item The item to edit.
+         */
+        function editItem (item)
         {
-            vm.item = new Item();
+            showEditItemModal(angular.copy(item)).then(function (item)
+            {
+                itemService.saveItem(item).then(function (response)
+                {
+                    if (response) {
+                        for (var i = 0; i < vm.items.length; i++) {
+                            if (vm.items[i].id === item.id) {
+                                vm.items[i] = item;
+                                return;
+                            }
+                        }
+                    }
+                });
+            });
         }
 
-        function editItem(item)
+        /**
+         * Show the modal dialog to edit an item.
+         *
+         * @param {Item} item The item to edit.
+         *
+         * @returns {*}
+         */
+        function showEditItemModal (item)
         {
-            vm.item = angular.copy(item);
-        }
-
-        function removeItem(item)
-        {
-            var removeModal = $uibModal.open({
+            var modal_options = {
                 animation: true,
-                templateUrl: 'removeItemModal',
-                controller: 'RemoveItemModalController',
+                templateUrl: 'editItemModal',
+                controller: 'EditItemController',
                 controllerAs: 'vm',
                 resolve: {
-                    item: function () {
+                    item: function ()
+                    {
                         return item;
                     }
                 }
-            });
+            };
 
-            removeModal.result.then(function (item) {
-                dataService.removeItem(item).then(function (response) {
+            var edit_modal = $uibModal.open(modal_options);
+
+            return edit_modal.result;
+        }
+
+        /**
+         * Remove the provided item from the database.
+         *
+         * @param {Object} item The item to remove.
+         */
+        function removeItem (item)
+        {
+            var modal_options = {
+                animation: true,
+                templateUrl: 'removeItemModal',
+                controller: 'RemoveItemController',
+                controllerAs: 'vm',
+                resolve: {
+                    item: function ()
+                    {
+                        return item;
+                    }
+                }
+            };
+
+            var remove_modal = $uibModal.open(modal_options);
+
+            remove_modal.result.then(function (item)
+            {
+                itemService.removeItem(item).then(function (response)
+                {
                     if (response) {
                         var index = vm.items.indexOf(item);
 
@@ -76,21 +130,6 @@
                         }
                     }
                 });
-            });
-        }
-
-        function saveItem()
-        {
-            dataService.saveItem(vm.item).then(function (response) {
-                if (response) {
-                    for (var i = 0; i < vm.items.length; i++) {
-                        if (vm.items[i].id === vm.item.id) {
-                            vm.items[i] = vm.item;
-                            clearItem();
-                            return;
-                        }
-                    }
-                }
             });
         }
     }

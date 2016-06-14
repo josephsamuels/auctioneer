@@ -4,8 +4,12 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Class CreateItemsTable - A migration to create the 'items' table.
+ */
 class CreateItemsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *

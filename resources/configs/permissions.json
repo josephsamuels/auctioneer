@@ -1,0 +1,23 @@
+{
+  "can_create_items": {
+    "description": "Can create items."
+  },
+  "can_delete_items": {
+    "description": "Can delete items."
+  },
+  "can_edit_items": {
+    "description": "Can edit items."
+  },
+  "can_view_items": {
+    "description": "Can view items."
+  },
+  "can_create_users": {
+    "description": "Can create users."
+  },
+  "can_edit_users": {
+    "description": "Can edit users."
+  },
+  "can_edit_supervisors": {
+    "description": "Can edit supervisor users."
+  }
+}
