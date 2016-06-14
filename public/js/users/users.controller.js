@@ -63,8 +63,8 @@
                 {
                     if (response) {
                         for (var i = 0; i < vm.users.length; i++) {
-                            if (vm.users[i].id === item.id) {
-                                vm.users[i] = item;
+                            if (vm.users[i].id === user.id) {
+                                vm.users[i] = user;
                                 return;
                             }
                         }
