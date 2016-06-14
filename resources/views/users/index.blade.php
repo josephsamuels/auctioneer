@@ -97,7 +97,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" ng-click="vm.cancel()">Cancel</button>
                 <button type="button" class="btn btn-primary" ng-click="vm.save()" ng-disabled="userEditForm.$invalid">
-                    Add User
+                    [{[ (vm.user.id) ? "Save User" : "Add User" ]}]
                 </button>
             </div>
         </script>
