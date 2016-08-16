@@ -26,7 +26,7 @@ class UsersApiController extends Controller
      *
      * @param Request $request The body of the request.
      *
-     * @return static
+     * @return User
      */
     public function postUser(Request $request)
     {

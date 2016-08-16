@@ -6,7 +6,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class User - A model of a user object.
- */
+ *
+ * @property mixed role
+*/
 class User extends Authenticatable
 {
 

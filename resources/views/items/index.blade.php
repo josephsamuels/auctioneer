@@ -2,8 +2,8 @@
 
 @section('content')
     <div ng-controller="ItemsController as vm">
-        <div class="row p-y-2">
-            <div class="col-xs-6 col-xs-offset-3">
+        <div class="col-xs-12 p-y-2">
+            <div class="col-lg-8 col-lg-offset-2">
                 @if(in_array('can_create_items', Auth::user()->getPermissions()))
                     <button type="button" class="btn btn-primary pull-xs-right" ng-click="vm.addItem()">
                         <span class="octicon octicon-plus"></span> Add Item
@@ -13,44 +13,42 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-6 col-xs-offset-3">
-                <div class="card">
-                    <table class="table table-hover" style="margin-bottom: 0;">
-                        <thead>
-                        <th>#</th>
-                        <th>Short Description</th>
-                        <th>Source</th>
-                        <th>Appx. Value</th>
-                        <th></th>
-                        </thead>
-                        <tbody>
-                        <tr ng-show="vm.items.length <= 0">
-                            <td colspan="5" class="text-xs-center">
-                                Add some items to get started!
-                            </td>
-                        </tr>
-                        <tr ng-repeat="item in vm.items | orderBy:'-id'">
-                            <th scope="row">[{[ item.id ]}]</th>
-                            <td>[{[ item.short_description ]}]</td>
-                            <td>[{[ item.source ]}]</td>
-                            <td style="width: 120px;">[{[ item.approximate_value | currency:"$" ]}]</td>
-                            <td class="text-xs-right" style="width: 120px;">
-                                @if(in_array('can_edit_items', Auth::user()->getPermissions()))
-                                    <button type="button" class="btn btn-secondary btn-sm" ng-click="vm.editItem(item)">
-                                        <span class="octicon octicon-pencil"></span>
-                                    </button>
-                                @endif
-                                @if(in_array('can_delete_items', Auth::user()->getPermissions()))
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                            data-target="#removeModal" ng-click="vm.removeItem(item)">
-                                        <span class="octicon octicon-remove-close"></span>
-                                    </button>
-                                @endif
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-lg-8 col-lg-offset-2">
+                <table class="table table-hover" style="border: 1px solid #eceeef; margin-bottom: 0;">
+                    <thead>
+                    <th>#</th>
+                    <th>Short Description</th>
+                    <th>Source</th>
+                    <th>Appx. Value</th>
+                    <th></th>
+                    </thead>
+                    <tbody>
+                    <tr ng-show="vm.items.length <= 0">
+                        <td colspan="5" class="text-xs-center">
+                            Add some items to get started!
+                        </td>
+                    </tr>
+                    <tr ng-repeat="item in vm.items | orderBy:'-id'">
+                        <th scope="row">[{[ item.id ]}]</th>
+                        <td>[{[ item.short_description ]}]</td>
+                        <td>[{[ item.source ]}]</td>
+                        <td style="width: 120px;">[{[ item.approximate_value | currency:"$" ]}]</td>
+                        <td class="text-xs-right" style="width: 120px;">
+                            @if(in_array('can_edit_items', Auth::user()->getPermissions()))
+                                <button type="button" class="btn btn-secondary btn-sm" ng-click="vm.editItem(item)">
+                                    <span class="octicon octicon-pencil"></span>
+                                </button>
+                            @endif
+                            @if(in_array('can_delete_items', Auth::user()->getPermissions()))
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                        data-target="#removeModal" ng-click="vm.removeItem(item)">
+                                    <span class="octicon octicon-remove-close"></span>
+                                </button>
+                            @endif
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
