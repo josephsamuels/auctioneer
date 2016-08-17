@@ -16,4 +16,14 @@ class ItemsController extends Controller
     {
         return view('items.index');
     }
+
+    /**
+     * Returns the print page for items.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function printItems()
+    {
+        return view('items.print');
+    }
 }

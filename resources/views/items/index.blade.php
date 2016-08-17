@@ -89,8 +89,7 @@
                     <label class="col-sm-3 form-control-label">Full Description</label>
                     <div class="col-sm-9">
                                 <textarea name="full_description" class="form-control" placeholder="Full Description"
-                                          ng-model="vm.item.full_description" required
-                                ></textarea>
+                                          ng-model="vm.item.full_description" required maxlength="255" rows="5"></textarea>
                     </div>
                 </fieldset>
                 <fieldset class="form-group row"

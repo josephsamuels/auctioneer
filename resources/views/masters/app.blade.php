@@ -8,25 +8,29 @@
 </head>
 <body>
 
+
 <div class="content">
-    <nav class="navbar navbar-sticky-top navbar-dark bg-primary">
-        <div class="navbar-brand">Auctioneer</div>
-        @if(Auth::user())
-            <ul class="nav navbar-nav pull-xs-right">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/items">Items</a>
-                </li>
-                @if(in_array(Auth::user()->role, ['supervisor', 'administrator']))
+    @if (!isset($hide_header) || !$hide_header)
+        <nav class="navbar navbar-sticky-top navbar-dark bg-primary">
+            <div class="navbar-brand">Auctioneer</div>
+            @if(Auth::user())
+                <ul class="nav navbar-nav pull-xs-right">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/users">Users</a>
+                        <a class="nav-link active" href="/items">Items</a>
                     </li>
-                @endif
-            </ul>
-        @endif
-    </nav>
+                    @if(in_array(Auth::user()->role, ['supervisor', 'administrator']))
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/users">Users</a>
+                        </li>
+                    @endif
+                </ul>
+            @endif
+        </nav>
+    @endif
 
     @yield('content')
 </div>
+
 
 <!-- Vendor scripts -->
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -49,6 +53,7 @@
 <script src="/js/items/items.controller.js"></script>
 <script src="/js/items/modal/edit-item.controller.js"></script>
 <script src="/js/items/modal/remove-item.controller.js"></script>
+<script src="/js/items/items-print.controller.js"></script>
 
 <script src="/js/users/users.module.js"></script>
 <script src="/js/users/users.controller.js"></script>

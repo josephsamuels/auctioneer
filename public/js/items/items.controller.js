@@ -24,7 +24,8 @@
          */
         function initialize ()
         {
-            itemService.getItems().then(function (items)
+            itemService.getItems().then(
+                function (items)
                 {
                     vm.items = items;
                     vm.loaded = true;
@@ -37,13 +38,17 @@
          */
         function addItem ()
         {
-            showEditItemModal(new Item()).then(function (item)
-            {
-                itemService.addItem(item).then(function (item)
+            showEditItemModal(new Item()).then(
+                function (item)
                 {
-                    vm.items.push(item);
-                });
-            });
+                    itemService.addItem(item).then(
+                        function (item)
+                        {
+                            vm.items.push(item);
+                        }
+                    );
+                }
+            );
         }
 
         /**
@@ -53,20 +58,24 @@
          */
         function editItem (item)
         {
-            showEditItemModal(angular.copy(item)).then(function (item)
-            {
-                itemService.saveItem(item).then(function (response)
+            showEditItemModal(angular.copy(item)).then(
+                function (item)
                 {
-                    if (response) {
-                        for (var i = 0; i < vm.items.length; i++) {
-                            if (vm.items[i].id === item.id) {
-                                vm.items[i] = item;
-                                return;
+                    itemService.saveItem(item).then(
+                        function (response)
+                        {
+                            if (response) {
+                                for (var i = 0; i < vm.items.length; i++) {
+                                    if (vm.items[i].id === item.id) {
+                                        vm.items[i] = item;
+                                        return;
+                                    }
+                                }
                             }
                         }
-                    }
-                });
-            });
+                    );
+                }
+            );
         }
 
         /**
@@ -118,19 +127,23 @@
 
             var remove_modal = $uibModal.open(modal_options);
 
-            remove_modal.result.then(function (item)
-            {
-                itemService.removeItem(item).then(function (response)
+            remove_modal.result.then(
+                function (item)
                 {
-                    if (response) {
-                        var index = vm.items.indexOf(item);
+                    itemService.removeItem(item).then(
+                        function (response)
+                        {
+                            if (response) {
+                                var index = vm.items.indexOf(item);
 
-                        if (index > -1) {
-                            vm.items.splice(index, 1);
+                                if (index > -1) {
+                                    vm.items.splice(index, 1);
+                                }
+                            }
                         }
-                    }
-                });
-            });
+                    );
+                }
+            );
         }
     }
 
