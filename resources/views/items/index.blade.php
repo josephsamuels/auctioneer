@@ -4,11 +4,14 @@
     <div ng-controller="ItemsController as vm">
         <div class="col-xs-12 p-y-2">
             <div class="col-lg-8 col-lg-offset-2">
-                @if(in_array('can_create_items', Auth::user()->getPermissions()))
-                    <button type="button" class="btn btn-primary pull-xs-right" ng-click="vm.addItem()">
-                        <span class="octicon octicon-plus"></span> Add Item
-                    </button>
-                @endif
+                <div class=" pull-xs-right">
+                    <a href="/print" class="btn btn-primary"><span class="octicon octicon-file-text"></span> Print</a>
+                    @if(in_array('can_create_items', Auth::user()->getPermissions()))
+                        <button type="button" class="btn btn-primary" ng-click="vm.addItem()">
+                            <span class="octicon octicon-plus"></span> Add Item
+                        </button>
+                    @endif
+                </div>
             </div>
         </div>
 
@@ -89,7 +92,8 @@
                     <label class="col-sm-3 form-control-label">Full Description</label>
                     <div class="col-sm-9">
                                 <textarea name="full_description" class="form-control" placeholder="Full Description"
-                                          ng-model="vm.item.full_description" required maxlength="255" rows="5"></textarea>
+                                          ng-model="vm.item.full_description" required maxlength="255"
+                                          rows="5"></textarea>
                     </div>
                 </fieldset>
                 <fieldset class="form-group row"
