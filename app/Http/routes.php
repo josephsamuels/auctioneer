@@ -15,6 +15,7 @@ Route::group(['middleware' => ['auth']], function () {
     // your routes
     Route::get('items', 'ItemsController@index');
     Route::get('print', 'ItemsController@printItems');
+    Route::get('csv', 'ItemsController@generateCsv');
 
     Route::get('api/v1/items', 'Api\ItemsApiController@getItems');
     Route::post('api/v1/item', 'Api\ItemsApiController@postItem');

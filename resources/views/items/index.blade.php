@@ -5,6 +5,7 @@
         <div class="col-xs-12 p-y-2">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class=" pull-xs-right">
+                    <a href="/csv" class="btn btn-primary"><span class="octicon octicon-link-external"></span> Export</a>
                     <a href="/print" class="btn btn-primary"><span class="octicon octicon-file-text"></span> Print</a>
                     @if(in_array('can_create_items', Auth::user()->getPermissions()))
                         <button type="button" class="btn btn-primary" ng-click="vm.addItem()">

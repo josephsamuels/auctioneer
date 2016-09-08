@@ -12,10 +12,10 @@
                         </div>
                     </div>
                     <p class="card-text"><strong>Item:</strong> [{[ item.short_description ]}]</p>
-                    <p class="card-text" style="font-size: 0.8rem;"><strong>Source:</strong> [{[ item.source ]}]</p>
                     <p class="card-text" style="font-size: 0.8rem;"><strong>Description:</strong>
                         [{[ item.full_description ]}]
                     </p>
+                    <p class="card-text" style="font-size: 0.8rem;"><strong>Source:</strong> [{[ item.source ]}]</p>
                     <div class="form-inline" style="position: absolute; bottom: 20px">
                         <strong>Winner:</strong>
                         <input class="form-control form-control-sm" type="text" style="width: 220px;"/>
