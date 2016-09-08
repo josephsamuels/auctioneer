@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Models\Item;
 use mnshankar\CSV\CSV;
 
@@ -38,6 +39,16 @@ class ItemsController extends Controller
     {
         $csv = new CSV();
 
-        return $csv->fromArray(Item::all()->toArray())->render('items.csv');
+        $hidden = [
+            'user_id',
+            'full_description',
+            'approximate_value',
+            'source',
+            'keywords',
+            'created_at',
+            'updated_at',
+        ];
+
+        return $csv->fromArray(Item::all()->makeHidden($hidden)->toArray())->render('items.csv');
     }
 }
